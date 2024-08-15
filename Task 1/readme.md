@@ -9,20 +9,21 @@ This project contains an automated test for https://demo.evershop.io/ using Sele
 
 ## Setup
 
-1. Clone the repository:
-   git clone
-
-2. Create and activate a virtual environment:
+1. In this directory, create and activate a virtual environment:
+   
    python -m venv venv
+   
    Then execute this command in Windows:
+  
    venv\Scripts\activate
 
-3. Install the required packages:
+2. Install the required packages:
    pip install -r requirements.txt
 
 ## Running the Test
 
 To run the test, execute the following command:
+
 pytest -s
 
 ## Project Structure
@@ -42,5 +43,6 @@ pytest -s
 
 ## Notes
 
-- The test uses Chrome as the default browser. So it is important to ,make sure Chrome installed on your system.
-- The test generates random customer data for each run, ensuring unique test cases.
+- The test uses Chrome as the default browser. So it is important to make sure Chrome installed on your system.
+- The test generates random customer data for each run, ensuring unique test cases. However, there could be cases in which an account with the given consumer data exists. In such case, it is recommended to execute the test again. 
+
