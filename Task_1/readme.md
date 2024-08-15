@@ -9,16 +9,9 @@ This project contains an automated test for https://demo.evershop.io/ using Sele
 
 ## Setup
 
-1. In this directory, create and activate a virtual environment:
-   
-   python -m venv venv
-   
-   Then execute this command in Windows:
-  
-   venv\Scripts\activate
+1. You must be in Task_1 directory, then you must install the required packages by using the following command:
 
-2. Install the required packages:
-   pip install -r requirements.txt
+   pip install selenium pytest faker webdriver-manager
 
 ## Running the Test
 
@@ -44,5 +37,4 @@ pytest -s
 ## Notes
 
 - The test uses Chrome as the default browser. So it is important to make sure Chrome installed on your system.
-- The test generates random customer data for each run, ensuring unique test cases. However, there could be cases in which an account with the given consumer data exists. In such case, it is recommended to execute the test again. 
-
+- The test generates random customer data for each run, ensuring unique test cases. However, there could be cases in which an account with the given consumer data exists. In such case, it is recommended to execute the test again.

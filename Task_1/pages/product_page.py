@@ -39,37 +39,6 @@ class ProductPage:
         random_color = random.choice(color_options)
         random_color.find_element(By.TAG_NAME, "a").click()
 
-    def set_random_size(self):
-        # Espera a que los elementos <li> de las tallas estén presentes
-        size_options = self.wait.until(EC.presence_of_all_elements_located(
-        (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[2]/div/div[2]/div[2]/div[1]/ul/li')))
-    
-        # Verifica si las opciones están disponibles
-        if size_options:
-            # Selecciona aleatoriamente un <li> de la lista de tamaños
-            random_size_li = random.choice(size_options)
-            size_option_link = random_size_li.find_element(By.TAG_NAME, "a")
-            # Haz clic en el enlace dentro del <li> seleccionado
-            size_option_link.click()
-            print(f"Selected size: {size_option_link.text}")
-        else:
-            print("No size options available.")
-
-
-    def set_random_color(self):
-        # Wait until colors are present
-        color_options = self.wait.until(EC.presence_of_all_elements_located(
-        (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[2]/div/div[2]/div[2]/div[2]/ul/li')))
-    
-        # Verify if options are available
-        if color_options:
-            random_color_li = random.choice(color_options)
-            color_option_link = random_color_li.find_element(By.TAG_NAME, "a")
-            color_option_link.click()
-            print(f"Selected color: {color_option_link.text}")
-        else:
-            print("No color options available.")
-
     def set_random_quantity(self):
         # Select random quantity for product from 1 to 10
         quantity_input = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='qty']")))

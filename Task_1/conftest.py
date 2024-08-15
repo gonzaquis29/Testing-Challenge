@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+# Configuration in which I use Chrome web browser.
+
 @pytest.fixture(scope="class")
 def driver(request):
     service = Service(ChromeDriverManager().install())

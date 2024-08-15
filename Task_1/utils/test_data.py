@@ -1,5 +1,6 @@
 from faker import Faker
 
+# Create an object to generate fake data to make tests.
 fake = Faker()
 
 def generate_customer_data():

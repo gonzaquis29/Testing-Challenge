@@ -16,21 +16,6 @@ class CheckoutPage:
         checkout_button = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/checkout']")))
         checkout_button.click()
 
-    def handle_radio_buttons(self):
-        try:
-            radio_buttons = self.wait.until(EC.presence_of_all_elements_located(
-                (By.CSS_SELECTOR, 'input[type="radio"][name="method"]')))
-            print(radio_buttons)
-            if radio_buttons:
-                random_radio = random.choice(radio_buttons)
-                random_radio.click()
-                print(f"Selected radio button: {random_radio.get_attribute('value')}")
-            else:
-                print("No radio buttons available.")
-        
-        except:
-            print("Radio buttons not present on this page.")
-
     def fill_shipping_address(self, customer_data):
         self.wait.until(EC.presence_of_element_located((By.NAME, "address[full_name]"))).send_keys(customer_data['full_name'])
         self.wait.until(EC.presence_of_element_located((By.NAME, "address[telephone]"))).send_keys(customer_data['telephone'])
@@ -39,7 +24,8 @@ class CheckoutPage:
        
         country_element = self.wait.until(EC.presence_of_element_located((By.ID, "address[country]")))
         select = Select(country_element)
-        # China does work but it ask for additional information
+
+        # I tested several countries and selected China because it works but it asks for additional information
         select.select_by_index(2)
         time.sleep(2)
         
@@ -50,10 +36,10 @@ class CheckoutPage:
         self.wait.until(EC.presence_of_element_located((By.NAME, "address[postcode]"))).send_keys(customer_data['postcode'])
         
         time.sleep(2) 
-        # Find the first radio button
-        first_radio_button = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "label[for='method1']")))
+        # Select radio button for shipping method
+        radio_button = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "label[for='method1']")))
         # Click the button
-        first_radio_button.click()
+        radio_button.click()
 
         
         # Click the "Continue to payment" button
@@ -64,7 +50,6 @@ class CheckoutPage:
         
 
     def fill_payment_information(self):
-
 
         time.sleep(4)
         continue_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="checkoutPaymentForm"]/div[3]/div[1]/div/div/div/div[1]/a'))) 
@@ -86,8 +71,8 @@ class CheckoutPage:
         # Locators for elements on the order confirmation page
         full_name_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[1]/div[1]/div[2]')
         email_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[1]/div[1]/div[3]')
-        full_name_addreess_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[1]/div[2]/div[2]/div/div[1]')
-        full_name_billing_addreess_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[2]/div[2]/div[2]/div/div[1]')
+        full_name_address_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[1]/div[2]/div[2]/div/div[1]')
+        full_name_billing_address_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[2]/div[2]/div[2]/div/div[1]')
 
         payment_method_locator = (By.XPATH, '//*[@id="app"]/div/main/div[2]/div[1]/div/div/div/div[2]/div[1]/div[2]')
 
@@ -96,8 +81,9 @@ class CheckoutPage:
         # Get the actual values from the order confirmation page
         actual_full_name = self.wait.until(EC.presence_of_element_located(full_name_locator)).text
         actual_email = self.wait.until(EC.presence_of_element_located(email_locator)).text
-        #actual_shipping_address = self.wait.until(EC.presence_of_element_located(shipping_address_locator)).text
         actual_payment_method = self.wait.until(EC.presence_of_element_located(payment_method_locator)).text
+        actual_full_name_address_locator = self.wait.until(EC.presence_of_element_located(full_name_address_locator)).text
+        actual_full_name_billing_address_locator = self.wait.until(EC.presence_of_element_located(full_name_billing_address_locator)).text
 
         items_elements = self.wait.until(EC.presence_of_all_elements_located(item_name_locator))
 
@@ -108,10 +94,10 @@ class CheckoutPage:
         assert actual_email == expected_email, f"Expected email {expected_email}, but got {actual_email}"
         print("Expected email is correct.")
 
-        assert full_name_addreess_locator != "", f"Shipping Address exists"
+        assert actual_full_name_address_locator != "", f"Shipping Address exists"
         print("There is information for Shipping Address")
 
-        assert full_name_billing_addreess_locator != "", f"Billing Address exists"
+        assert actual_full_name_billing_address_locator != "", f"Billing Address exists"
         print("There is information for Billing Address")
         
         assert actual_payment_method != "", f"Payment Method does not exist"
