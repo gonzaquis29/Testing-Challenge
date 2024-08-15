@@ -11,13 +11,13 @@ This project contains an automated test for https://demo.evershop.io/ using Sele
 
 1. You must be in Task_1 directory, then you must install the required packages by using the following command:
 
-   pip install selenium pytest faker webdriver-manager
+   `pip install selenium pytest faker webdriver-manager`
 
 ## Running the Test
 
 To run the test, execute the following command:
 
-pytest -s
+`pytest -s`
 
 ## Project Structure
 

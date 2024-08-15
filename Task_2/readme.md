@@ -9,12 +9,12 @@ This project contains an automated test for https://api.countrylayer.com/v2/all 
 
 ## Setup
 Install the required packages:
-pip install requests
+`pip install requests`
 
 ## Running the Test
 
 To run the test, execute the following command:
-python api_tests.py
+`python api_tests.py`
 
 ## Libraries Used
 
